@@ -24,5 +24,5 @@ jobs:
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
-          git remote add target https://$PAT_TOKEN@github.com/SH1R3F/Test-GH-Actions-Y.git
+          git remote add target https://SH1R3F:$PAT_TOKEN@github.com/SH1R3F/Test-GH-Actions-Y.git
           git push target main --force
