@@ -39,4 +39,4 @@ jobs:
           git config --global user.email "bot-X@test.com"
           git add dest
           git commit -m "hmmm"
-          git push
+          git push --set-upstream origin main
