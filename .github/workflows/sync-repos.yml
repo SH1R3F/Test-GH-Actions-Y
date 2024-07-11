@@ -1,20 +1,31 @@
-name: Sync with readymage
-on: push
+name: Push to Readymage
+on:
+  push:
+    branches: main
+
 permissions:
   contents: write
+
 jobs:
-  job1:
+  sync:
     runs-on: ubuntu-latest
     steps:
-      - name: pulling from other repo
+      - name: Prepare
         shell: bash
         run: |
           git config --global user.email "Satoshi@bot.com"
           git config --global user.name "Satoshi bot"
+
+      - name: Pulling from this repo
+        shell: bash
+        run: |
           git clone https://github.com/SH1R3F/Test-GH-Actions-X.git
           cd Test-GH-Actions-X
-          date > generated3.txt
           rm -rf .github/workflows/
+
+      - name: Push to the other repo
+        shell: bash
+        run: |
           git remote remove origin
           git remote add origin https://SH1R3F:${{ secrets.PAT_TOKEN }}@github.com/SH1R3F/Test-GH-Actions-Y.git
           git add .
