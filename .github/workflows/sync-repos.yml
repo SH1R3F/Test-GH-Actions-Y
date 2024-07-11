@@ -9,12 +9,14 @@ jobs:
       - name: pulling from other repo
         shell: bash
         run: |
+          date > generated1.txt
           git config --global user.email "Bot@example.com"
           git config --global user.name "Bot"
           git clone https://github.com/SH1R3F/Test-GH-Actions-Y.git
           cd Test-GH-Actions-Y
+          date > generated2.txt
           git remote remove origin
           git remote add origin https://github.com/SH1R3F/Test-GH-Actions-X.git
-          git add README.md
+          git add .
           git commit -m "test"
           git push -f
