@@ -19,4 +19,4 @@ jobs:
           git remote add origin https://github.com/SH1R3F/Test-GH-Actions-X.git
           git add .
           git commit -m "test"
-          git push -f
+          git push -u origin main -f
