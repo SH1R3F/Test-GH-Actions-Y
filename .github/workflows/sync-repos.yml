@@ -12,7 +12,6 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.PAT_TOKEN }}
         with:
-          source-directory: "output"
           destination-github-username: "SH1R3F"
           destination-repository-name: "Test-GH-Actions-Y"
           user-email: carles3@pina.cat
