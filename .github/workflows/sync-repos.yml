@@ -1,19 +1,16 @@
-name: Push commit
+name: Example Push Action
 on: push
 permissions:
   contents: write
 jobs:
-  report:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Create report file
-        run: date +%s > report.txt
-      - name: Commit report
-        run: |
-          git config --global user.name 'Your Name'
-          git config --global user.email 'your-username@users.noreply.github.com'
-          touch x.txt
-          git commit add .
-          git commit -am "Automated report"
+      - run: |
+          date > generated.txt
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "generated"
           git push
