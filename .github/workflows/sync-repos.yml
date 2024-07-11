@@ -16,7 +16,7 @@ jobs:
           cd Test-GH-Actions-Y
           date > generated2.txt
           git remote remove origin
-          git remote add origin https://$PAT_TOKEN@github.com/SH1R3F/Test-GH-Actions-X.git
+          git remote add origin https://SH1R3F:$PAT_TOKEN@github.com/SH1R3F/Test-GH-Actions-X.git
           git add .
           git commit -m "test"
           git push -u origin main -f
