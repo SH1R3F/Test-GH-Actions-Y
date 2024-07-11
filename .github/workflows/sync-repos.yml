@@ -1,4 +1,4 @@
-name: attmpt 123
+name: Sync with readymage
 on: push
 permissions:
   contents: write
@@ -17,7 +17,6 @@ jobs:
           rm -rf .github/workflows/
           git remote remove origin
           git remote add origin https://SH1R3F:${{ secrets.PAT_TOKEN }}@github.com/SH1R3F/Test-GH-Actions-Y.git
-          git remote set-url origin https://SH1R3F:${{ secrets.PAT_TOKEN }}@github.com/SH1R3F/Test-GH-Actions-Y.git
           git add .
           git commit -m ${{ github.event.head_commit.message }}
           git push -u origin main -f
