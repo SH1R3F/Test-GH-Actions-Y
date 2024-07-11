@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Pushes to Repository
-        uses: tech-SH1R3F/Test-GH-Actions-Y@main
+        uses: SH1R3F/Test-GH-Actions-Y@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.PAT_TOKEN }}
         with:
