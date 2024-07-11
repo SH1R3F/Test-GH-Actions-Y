@@ -1,22 +1,17 @@
-name: update multi repos
-
-on:
-  push:
-    branches:
-      - "main"
-
+name: Push commit
+on: push
+permissions:
+  contents: write
 jobs:
-  copy-files:
+  report:
     runs-on: ubuntu-latest
     steps:
-      - name: Pushes to Repository
-        uses: SH1R3F/Test-GH-Actions-Y
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.PAT_TOKEN }}
-        with:
-          user-name: "github-actions[bot]"
-          user-email: github-actions[bot]@users.noreply.github.com
-          source-directory: "output-dir"
-          destination-github-username: "username"
-          destination-repository-name: "repo-name"
-          target-branch: main
+      - uses: actions/checkout@v3
+      - name: Create report file
+        run: date +%s > report.txt
+      - name: Commit report
+        run: |
+          git config --global user.name 'Your Name'
+          git config --global user.email 'your-username@users.noreply.github.com'
+          git commit -am "Automated report"
+          git push
