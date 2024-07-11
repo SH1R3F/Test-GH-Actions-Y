@@ -1,26 +1,9 @@
-name: Continuous Integration
-on:
-  push:
-    branches:
-      - main
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    env:
-      CI_COMMIT_MESSAGE: Continuous Integration Build Artifacts
-      CI_COMMIT_AUTHOR: Continuous Integration
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.PAT_TOKEN }}
-
-      # Commit and push all changed files.
-      # Must only affect files that are listed in "paths-ignore".
-      - name: GIT Commit Build Artifacts (coverage, dist, devdist, docs)
-        # Only run on main branch push (e.g. pull request merge).
-        if: github.event_name == 'push'
-        run: |
-          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
-          git config --global user.email "username@users.noreply.github.com"
-          git remote add target https://$token@github.com/SH1R3F/Test-GH-Actions-Y
-          git push target main --force
+- name: Generate API module
+  env:
+    PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+  run: |
+    git config --global user.name 'github-actions[bot]'
+    git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+    git config --unset-all http.https://github.com/.extraheader
+    git remote add target https://$PAT_TOKEN@github.com/SH1R3F/Test-GH-Actions-Y
+    git push target main --force
