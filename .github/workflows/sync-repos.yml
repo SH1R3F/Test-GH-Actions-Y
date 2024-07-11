@@ -9,31 +9,14 @@ jobs:
   copy-files:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Pushes to Repository
+        uses: tech-SH1R3F/Test-GH-Actions-Y@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.PAT_TOKEN }}
         with:
-          path: "src"
-          ref: "main"
-          persist-credentials: false
-
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          path: "dest"
-          ref: "main"
-          repository: "SH1R3F/Test-GH-Actions-Y"
-          token: ${{secrets.PAT_TOKEN}}
-          persist-credentials: false
-
-      - name: Copy files
-        shell: bash
-        run: |
-          mkdir -p dest
-          cp -rvT src/
-
-      - name: push them
-        run: |
-          git config --global user.name "test"
-          git config --global user.email "test@test.com"
-          git commit -m "test"
-          git push
+          user-name: "github-actions[bot]"
+          user-email: github-actions[bot]@users.noreply.github.com
+          source-directory: "output-dir"
+          destination-github-username: "username"
+          destination-repository-name: "repo-name"
+          target-branch: main
