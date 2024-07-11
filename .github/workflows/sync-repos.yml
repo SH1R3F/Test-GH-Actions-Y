@@ -1,4 +1,4 @@
-name: Sync to Repository Y
+name: Push commit
 on: push
 permissions:
   contents: write
@@ -10,10 +10,11 @@ jobs:
       - name: Create report file
         run: date +%s > report.txt
       - name: Commit report
-        env:
+        with:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git config --global user.name 'Your Name'
           git config --global user.email 'your-username@users.noreply.github.com'
-          git remote set-url --push origin https://SH1R3F:$GITHUB_TOKEN@github.com/SH1R3F/Test-GH-Actions-Y.git
-          git push origin main --force
+          git remote set-url --push origin https://SH1R3F:$GITHUB_TOKEN@github.com/SH1R3F/Test-GH-Actions-Y
+          git commit -am "Automated report"
+          git push
