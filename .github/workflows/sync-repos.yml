@@ -12,7 +12,6 @@ jobs:
           date > generated1.txt
           git config --global user.email "Bot@example.com"
           git config --global user.name "Bot"
-          git config --global url.https://${{ secrets.PAT_TOKEN }}@github.com/
           git clone https://github.com/SH1R3F/Test-GH-Actions-Y.git
           cd Test-GH-Actions-Y
           date > generated2.txt
