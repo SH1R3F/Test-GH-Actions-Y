@@ -1,43 +1,38 @@
 name: Update Helm Manifests
+on: push
+permissions:
+  contents: write
+jobs:
+  copy-files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: "src"
+          ref: "main"
+          persist-credentials: false
 
-  on:
-    push:
-      branches:
-        - 'main'
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: "dest"
+          ref: "main"
+          repository: "SH1R3F/Test-GH-Actions-Y"
+          token: ${{ secrets.PAT_TOKEN }}
+          fetch-depth: 0
+          persist-credentials: true
 
-  concurrency: helm-manifest-updates
+      - name: Copy common files to new repo
+        shell: bash
+        run: |
+          mkdir -p dest/
+          cp -rvT src/ dest
 
-  jobs:
-    copy-files:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v3
-          with:
-            path: 'src'
-            ref: 'main'
-            persist-credentials: false
-
-        - name: Checkout
-          uses: actions/checkout@v3
-          with:
-            path: 'dest'
-            ref: 'main'
-            repository: 'SH1R3F/Test-GH-Actions-Y'
-            token: ${{ secrets.PAT_TOKEN }}
-            fetch-depth: 0
-            persist-credentials: true
-
-        - name: Copy common files to new repo
-          shell: bash
-          run: |
-            mkdir -p dest/
-            cp -rvT src/ dest
-
-        - name: Push
-          shell: bash
-          run: |
-            git config --global user.name "bot X"
-            git config --global user.email "bot-X@test.com"
-            git commit -m "hmmm"
-            git push
+      - name: Push
+        shell: bash
+        run: |
+          git config --global user.name "bot X"
+          git config --global user.email "bot-X@test.com"
+          git commit -m "hmmm"
+          git push
