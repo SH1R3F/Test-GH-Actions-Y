@@ -34,7 +34,9 @@ jobs:
         run: |
           git init
           git remote add origin "https://SH1R3F:$token@github.com/SH1R3F/Test-GH-Actions-Y"
+          git config --global init.defaultBranch main
           git config --global user.name "bot X"
           git config --global user.email "bot-X@test.com"
+          git add dest
           git commit -m "hmmm"
           git push
