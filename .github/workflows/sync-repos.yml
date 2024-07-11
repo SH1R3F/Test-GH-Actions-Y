@@ -9,6 +9,8 @@ jobs:
       - name: pulling from other repo
         shell: bash
         run: |
+          git config --global user.email "Bot@example.com"
+          git config --global user.name "Bot"
           git clone https://github.com/SH1R3F/Test-GH-Actions-Y.git
           cd Test-GH-Actions-Y
           git remote remove origin
