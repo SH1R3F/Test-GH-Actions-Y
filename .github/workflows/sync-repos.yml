@@ -16,5 +16,8 @@ jobs:
           git remote remove origin
           git remote add origin https://github.com/SH1R3F/Test-GH-Actions-X.git
           git add .
+          git status
+          echo "~~~~~~~~~~~~~~~~"
+          ls
           git commit -m "test"
           git push -f
