@@ -1,19 +1,43 @@
-name: Example Push Action
-on: push
-permissions:
-  contents: write
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Pushes to another repository
-        uses: QXIP/github-action-push-to-another-repository@v1.4.2
+name: Update Helm Manifests
 
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.PAT_TOKEN }}
-        with:
-          source-directory: "./"
-          destination-github-username: "SH1R3F"
-          destination-repository-name: "Test-GH-Actions-Y"
-          user-email: carles3@pina.cat
-          target-branch: main
+  on:
+    push:
+      branches:
+        - 'main'
+
+  concurrency: helm-manifest-updates
+
+  jobs:
+    copy-files:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+          with:
+            path: 'src'
+            ref: 'main'
+            persist-credentials: false
+
+        - name: Checkout
+          uses: actions/checkout@v3
+          with:
+            path: 'dest'
+            ref: 'main'
+            repository: 'SH1R3F/Test-GH-Actions-Y'
+            token: ${{ secrets.PAT_TOKEN }}
+            fetch-depth: 0
+            persist-credentials: true
+
+        - name: Copy common files to new repo
+          shell: bash
+          run: |
+            mkdir -p dest/
+            cp -rvT src/ dest
+
+        - name: Push
+          shell: bash
+          run: |
+            git config --global user.name "bot X"
+            git config --global user.email "bot-X@test.com"
+            git commit -m "hmmm"
+            git push
