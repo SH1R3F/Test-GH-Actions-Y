@@ -6,14 +6,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      with:
-        token: ${{ secrets.PAT_TOKEN }}
-      - run: |
-          date > generated.txt
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add .
-          git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/SH1R3F/Test-GH-Actions-Y
-          git commit -m "generated"
-          git push
+      - name: Pushes to another repository
+        uses: QXIP/github-action-push-to-another-repository@v1.4.2
+
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.PAT_TOKEN }}
+        with:
+          source-directory: "output"
+          destination-github-username: "SH1R3F"
+          destination-repository-name: "Test-GH-Actions-Y"
+          user-email: carles3@pina.cat
+          target-branch: main
