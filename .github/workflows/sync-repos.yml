@@ -1,20 +1,28 @@
-name: Push commit
-on: push
-permissions:
-  contents: write
+name: Continuous Integration
+on:
+  push:
+    branches:
+      - main
 jobs:
-  report:
+  build:
     runs-on: ubuntu-latest
+    env:
+      CI_COMMIT_MESSAGE: Continuous Integration Build Artifacts
+      CI_COMMIT_AUTHOR: Continuous Integration
     steps:
       - uses: actions/checkout@v3
-      - name: Create report file
-        run: date +%s > report.txt
-      - name: Commit report
         with:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+          token: ${{ secrets.PAT_TOKEN }}
+
+      # Commit and push all changed files.
+      # Must only affect files that are listed in "paths-ignore".
+      - name: GIT Commit Build Artifacts (coverage, dist, devdist, docs)
+        # Only run on main branch push (e.g. pull request merge).
+        if: github.event_name == 'push'
         run: |
-          git config --global user.name 'Your Name'
-          git config --global user.email 'your-username@users.noreply.github.com'
-          git remote set-url --push origin https://SH1R3F:$GITHUB_TOKEN@github.com/SH1R3F/Test-GH-Actions-Y
-          git commit -am "Automated report"
-          git push
+          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config --global user.email "username@users.noreply.github.com"
+          git remote add target https://$token@github.com/SH1R3F/Test-GH-Actions-Y
+          git add .
+          git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
+          git push target main --force
