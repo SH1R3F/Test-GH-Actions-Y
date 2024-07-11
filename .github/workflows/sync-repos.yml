@@ -9,8 +9,8 @@ jobs:
       - name: pulling from other repo
         shell: bash
         run: |
-          git config --global user.email "Bot@example.com"
-          git config --global user.name "Bot"
+          git config --global user.email "Satoshi@bot.com"
+          git config --global user.name "Satoshi bot"
           git clone https://github.com/SH1R3F/Test-GH-Actions-X.git
           cd Test-GH-Actions-X
           date > generated3.txt
@@ -19,5 +19,5 @@ jobs:
           git remote add origin https://SH1R3F:${{ secrets.PAT_TOKEN }}@github.com/SH1R3F/Test-GH-Actions-Y.git
           git remote set-url origin https://SH1R3F:${{ secrets.PAT_TOKEN }}@github.com/SH1R3F/Test-GH-Actions-Y.git
           git add .
-          git commit -m "test"
+          git commit -m ${{ github.event.head_commit.message }}
           git push -u origin main -f
