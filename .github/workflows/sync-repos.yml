@@ -1,4 +1,8 @@
 - name: Generate API module
+  on:
+    push:
+      branches:
+        - main
   env:
     PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
   run: |
